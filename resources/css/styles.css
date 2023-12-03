@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+/*
+GENERAL STYLES
+*/
+main {
+   display: flex;
+   height: 85vh;
+   justify-content: center;
+   align-items: center;
+}
+
+button {
+    height: 70px;
+    width: 80px;
+    border: 2px solid #2E3440;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d3d7de;
+}
+/*
+TYPOGRAPHY
+*/
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+.last-screen {
+    font-size: 20px;
+}
+
+.current-screen {
+    font-size: 40px;
+}
+
+.btn {
+    font-size: 20px;
+}
+
+footer {
+    font-size: 20px;
+}
+
+a {
+    color: #000;
+}
+/*
+COLOURS
+*/
+body {
+    background-color: #ECEFF4;
+}
+
+.calculator {
+    background-color: #D8DEE9;
+}
+
+.screen {
+    background-color: #E5E9F0;
+}
+
+.btn {
+    background-color: #ECEFF4;
+}
+
+.special-btns {
+    background-color: #c2c8d2;
+}
+
+/*
+CALCULATOR & SCREEN
+*/
+.calculator {
+    width: 400px;
+    min-height: 550px;
+    border: 2px solid #2E3440;
+    border-radius: 15px;
+}
+
+.screen {
+    min-height: 120px;
+    width: 90%;
+    border: 2px solid #2E3440;
+    border-radius: 5px;
+    margin: 0 auto;
+    margin-top: 5%;
+}
+
+.last-screen {
+    width: 95%;
+    min-height: 50px;
+    margin: 0 auto;
+    direction: rtl;
+    word-wrap: break-word;
+}
+
+.current-screen {
+    width: 95%;
+    margin: 0 auto;
+    direction: rtl;
+    word-wrap: break-word;
+}
+
+.buttons-container {
+    width: 90%;
+    margin: 0 auto;
+    height: 75%;
+}
+
+.buttons-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.clear-btn, .delete-btn {
+    flex-grow: 1;
+    margin-right: 12px; 
+}
+
+/*
+FOOTER
+*/
+footer {
+    text-align: center;
+    position: fixed;
+    left: 0;
+    bottom: 10px;
+    width: 100%;
+}
