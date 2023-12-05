@@ -12,13 +12,27 @@ let currentOperator;
 
 OPERANDS.forEach(operand => {
     operand.addEventListener('click', (event) => {
-        console.log(event.target.innerHTML, event);
+        if (currentOperand === '0') {
+            currentOperand = event.target.innerHTML;
+        } else {
+            currentOperand += event.target.innerHTML;
+        }
+        console.log(currentOperand);
+        updateCurrentOperationScreen();
     });
 });
 
 OPERATORS.forEach(operator => {
     operator.addEventListener('click', (event) => {
-        console.log(event.target.innerHTML, event);
+        if (currentOperand !== '0' && lastOperand && currentOperand) {
+            operate(currentOperand, lastOperand, currentOperand);
+            currentOperator = operator.target.innerHTML;
+        } else {
+            currentOperand = operator.target.innerHtml;
+            lastOperand = currentOperand;
+            currentOperand = '0';
+            updateLastOperationScreen();
+        }
     });
 });
 
@@ -31,17 +45,20 @@ DELETE_BTN.addEventListener('click', () => {
 });
 
 EQUALS_BTN.addEventListener('click', () => {
-    if(currentOperand, lastOperand, currentOperator) {
+    if(currentOperand !== '0' && lastOperand && currentOperator) {
         operate(currentOperand, lastOperand, currentOperand); 
     }
 });
 
 SIGN_BTN.addEventListener('click', () => {
-    if (currentOperand[0] === '-') {
-        currentOperand = currentOperand.slice(1);
-    } else {
-        currentOperand = '-' + currentOperand;
+    // Direction: rtl; causes - to appear left to right, so have to use the unicode character 'LEFT-TO-RIGHT MARK' to force a left to right direction for the -
+    if (currentOperand.startsWith('\u200E-') || currentOperand.startsWith('-')) {
+        currentOperand = currentOperand.slice(2);
+        // Have to use slice(2) to remove directionality mark. Otherwise would not be removed
+    } else if (currentOperand !== '0') {
+        currentOperand = '\u200E-' + currentOperand;
     }
+    updateCurrentOperationScreen();
 });
 
 DECIMAL_BTN.addEventListener('click', () => {
@@ -49,14 +66,16 @@ DECIMAL_BTN.addEventListener('click', () => {
     if (!regex.test(currentOperand) && currentOperand !== '0') {
         currentOperand += '.';
     }
+    updateCurrentOperationScreen();
 });
 
 function updateCurrentOperationScreen() {
-
+    const currentOperationScreen = document.getElementById('currentOperationScreen');
+    currentOperationScreen.innerHTML = currentOperand;
 }
 
 function updateLastOperationScreen() {
-    
+    const lastOperationScreen = document.getElementById('lastOperationScreen');
 }
 
 function updateCurrentOperator() {
