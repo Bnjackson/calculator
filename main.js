@@ -17,18 +17,17 @@ OPERANDS.forEach(operand => {
         } else {
             currentOperand += event.target.innerHTML;
         }
-        console.log(currentOperand);
         updateCurrentOperationScreen();
     });
 });
 
 OPERATORS.forEach(operator => {
     operator.addEventListener('click', (event) => {
-        if (currentOperand !== '0' && lastOperand && currentOperand) {
+        if (currentOperand !== '0' && lastOperand && currentOperator) {
             operate(currentOperand, lastOperand, currentOperand);
-            currentOperator = operator.target.innerHTML;
+            currentOperator = event.target.innerHTML;
         } else {
-            currentOperand = operator.target.innerHtml;
+            currentOperator = event.target.innerHTML;
             lastOperand = currentOperand;
             currentOperand = '0';
             updateLastOperationScreen();
@@ -76,6 +75,16 @@ function updateCurrentOperationScreen() {
 
 function updateLastOperationScreen() {
     const lastOperationScreen = document.getElementById('lastOperationScreen');
+    if (currentOperand === '0') {
+        lastOperationScreen.innerHTML =  `${currentOperator} `;
+        lastOperationScreen.innerHTML += lastOperand;
+    } else {
+        lastOperationScreen.innerHTML = '= ';
+        lastOperationScreen.innerHTML = `${currentOperand} `;
+        lastOperationScreen.innerHTML = `${currentOperator} `;
+        lastOperationScreen.innerHTML += `${lastOperand }`;
+    }
+    // Was causing a bug when I tried to concatenate the strings together. So have to do separately.
 }
 
 function updateCurrentOperator() {
