@@ -87,18 +87,26 @@ function updateLastOperationScreen() {
     // Was causing a bug when I tried to concatenate the strings together. So have to do separately.
 }
 
-function updateCurrentOperator() {
-
-}
 
 function operate(operand1, operand2, operator) {
 
 }
 
 function clearCalculator() {
-
+    const currentOperationScreen = document.getElementById('currentOperationScreen');
+    const lastOperationScreen = document.getElementById('lastOperationScreen');
+    currentOperand = '0';
+    lastOperand = '';
+    currentOperator = '';
+    currentOperationScreen.innerHTML = currentOperand;
+    lastOperationScreen.innerHTML = '';
 }
 
 function deleteLastDigit() {
-
+    if (currentOperand.length === 1) {
+        currentOperand = '0';
+    } else {
+        currentOperand = currentOperand.slice(0, currentOperand.length - 1);
+    }
+    updateCurrentOperationScreen()
 }
