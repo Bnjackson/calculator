@@ -45,17 +45,16 @@ DELETE_BTN.addEventListener('click', () => {
 
 EQUALS_BTN.addEventListener('click', () => {
     if(currentOperand !== '0' && lastOperand && currentOperator) {
-        operate(currentOperand, lastOperand, currentOperand); 
+        operate(currentOperand, lastOperand, currentOperator); 
     }
 });
 
 SIGN_BTN.addEventListener('click', () => {
-    // Direction: rtl; causes - to appear left to right, so have to use the unicode character 'LEFT-TO-RIGHT MARK' to force a left to right direction for the -
-    if (currentOperand.startsWith('\u200E-') || currentOperand.startsWith('-')) {
-        currentOperand = currentOperand.slice(2);
-        // Have to use slice(2) to remove directionality mark. Otherwise would not be removed
+    // Sign button not working as intended I tried to use the directionality mark, but was messing up operations. So sing appears on the right side instead of left.
+    if (currentOperand[0] !== '-' && currentOperand !== '0') {
+        currentOperand = '-' + currentOperand;
     } else if (currentOperand !== '0') {
-        currentOperand = '\u200E-' + currentOperand;
+        currentOperand = currentOperand.slice(1);
     }
     updateCurrentOperationScreen();
 });
@@ -79,9 +78,10 @@ function updateLastOperationScreen() {
         lastOperationScreen.innerHTML =  `${currentOperator} `;
         lastOperationScreen.innerHTML += lastOperand;
     } else {
+        console.log('Update screen running');
         lastOperationScreen.innerHTML = '= ';
-        lastOperationScreen.innerHTML = `${currentOperand} `;
-        lastOperationScreen.innerHTML = `${currentOperator} `;
+        lastOperationScreen.innerHTML += `${currentOperand} `;
+        lastOperationScreen.innerHTML += `${currentOperator} `;
         lastOperationScreen.innerHTML += `${lastOperand }`;
     }
     // Was causing a bug when I tried to concatenate the strings together. So have to do separately.
@@ -89,7 +89,21 @@ function updateLastOperationScreen() {
 
 
 function operate(operand1, operand2, operator) {
-
+    let result = '';
+    if (operator === '÷') {
+        result = Number(operand2) / Number(operand1);
+    } else if (operator === '*') {
+        result = Number(operand2) * Number(operand1);
+    } else if (operator === '-') {
+        result = Number(operand2) - Number(operand1);
+    } else if (operator === '+') {
+        result = Number(operand2) + Number(operand1);
+    }
+    console.log(typeof result);
+    updateLastOperationScreen();
+    currentOperand = result.toString();
+    lastOperand = '';
+    updateCurrentOperationScreen();
 }
 
 function clearCalculator() {
