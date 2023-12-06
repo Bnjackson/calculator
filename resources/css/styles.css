@@ -92,14 +92,12 @@ CALCULATOR & SCREEN
     width: 95%;
     min-height: 50px;
     margin: 0 auto;
-    direction: rtl;
     word-wrap: break-word;
 }
 
 .current-screen {
     width: 95%;
     margin: 0 auto;
-    direction: rtl;
     word-wrap: break-word;
 }
 
